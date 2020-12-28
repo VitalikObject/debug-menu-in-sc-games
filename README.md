@@ -6,6 +6,7 @@ You must set up gadget by this [instruction](https://frida.re/docs/gadget/).
 
 ## Supported games
 [Clash of Clans](https://github.com/VitalikObject/debug-menu-in-sc-games/tree/main/clash%20of%20clans)
+
 [Boom Beach](https://github.com/VitalikObject/debug-menu-in-sc-games/tree/main/boom%20beach)
 
 # Important info
