@@ -2,7 +2,7 @@
 An open source collection of frida script for open debug menu in Supercell games!
 
 ## Setup
-You must set up gadget by this [instruction](https://frida.re/docs/gadget/).
+You must set up frida gadget by this [instruction](https://frida.re/docs/gadget/).
 
 ## Supported games
 [Clash of Clans](https://github.com/VitalikObject/debug-menu-in-sc-games/tree/main/clash%20of%20clans)
