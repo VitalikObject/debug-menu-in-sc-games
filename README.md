@@ -1,5 +1,5 @@
 # debug-menu-in-sc-games
-An open source collection of frida script for open debug menu in Supercell games!
+An open source collection of frida scripts for open debug menu in Supercell games!
 
 ## Setup
 You must set up frida gadget by this [instruction](https://frida.re/docs/gadget/).
