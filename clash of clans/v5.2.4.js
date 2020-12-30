@@ -11,7 +11,7 @@ var StageCtorPtr = 0x01E6188 + 1;
 var GameModeAddResourcesToLoadPtr = 0x014C644 + 1;
 var MoneyHudCtorPtr = 0x011B908 + 1;
 var HudUpdatePtr = 0x0118198 + 1;
-var LevelMenuButtonClickedPtr = 0x00F9C9C + 1;
+var LoadLevelButtonButtonPressedPtr = 0x00F9E08 + 1;
 var EffectPreviewButtonButtonPressedPtr = 0x00F974C + 1;
 var ToggleDebugMenuButtonButtonPressedPtr = 0x00FA9C8 + 1;
 
@@ -57,7 +57,7 @@ var hudUpdate = Interceptor.attach(base.add(HudUpdatePtr), {
 		fDebugMenuBaseUpdate(dptr, 20);
 	}
 });
-var levelButton = Interceptor.attach(base.add(LevelMenuButtonClickedPtr), {
+var levelButton = Interceptor.attach(base.add(LoadLevelButtonButtonPressedPtr), {
 	onEnter: function(args) {
 		if (debugmenutype === 0) {
 			console.log("Level Button pressed");
