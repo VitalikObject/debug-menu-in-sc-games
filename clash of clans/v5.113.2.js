@@ -3,10 +3,12 @@ const mallocPtr = Module.findExportByName("libc.so", "malloc");
 const freePtr = Module.findExportByName("libc.so", "free");
 const DebugMenuCtorPtr = 0x004BD40 + 1;
 const LevelMenuCtorPtr = 0x004EF50 + 1;
+const EffectPreviewCtorPtr = 0x004EB84 + 1; 
 const DebugInfoCtor = 0x0049C24 + 1;
 const ResourceListenerAddFilePtr = 0x01351B0 + 1;
 const StageAddChildPtr = 0x013EEB0 + 1;
 const DebugMenuBaseUpdatePtr = 0x004CD84 + 1;
+const EffectPreviewUpdatePtr = 0x004ED58 + 1;
 const StageRemoveChildPtr = 0x013EEC4 + 1;
 const StageCtorPtr = 0x013D310 + 1;
 const StringCtorPtr = 0x010D15C + 1;
@@ -14,17 +16,20 @@ const GameModeAddResourcesToLoadPtr = 0x00A2BB0 + 1;
 const MoneyHudCtorPtr = 0x00705C0 + 1;
 const HudUpdatePtr = 0x006E2D4 + 1;
 const LoadLevelButtonButtonPressedPtr = 0x004F5AC + 1;
+const EffectPreviewButtonButtonPressedPtr = 0x004EEF0 + 1;
 const ToggleDebugMenuButtonButtonPressedPtr = 0x005016C + 1;
 const ChatInputGlobalSendMessagePtr = 0x0041A94 + 1;
 
 const malloc = new NativeFunction(mallocPtr, 'pointer', ['int']);
-const free = new NativeFunction(freePtr, 'pointer', ['pointer']);
+const free = new NativeFunction(freePtr, 'void', ['pointer']);
 const fDebugMenuCtor = new NativeFunction(base.add(DebugMenuCtorPtr), "void", ["pointer"]);
 const fLevelMenuCtor = new NativeFunction(base.add(LevelMenuCtorPtr), "void", ["pointer", "int"]);
+const fEffectPreviewCtor = new NativeFunction(base.add(EffectPreviewCtorPtr), "void", ["pointer"]);
 const fDebugInfoCtor = new NativeFunction(base.add(DebugInfoCtor), "void", ["pointer"]);
 const fResourceListenerAddFile = new NativeFunction(base.add(ResourceListenerAddFilePtr), "void", ["pointer", "pointer"]);
 const fStageAddChild = new NativeFunction(base.add(StageAddChildPtr), "int", ["pointer", "pointer"]);
 const fDebugMenuBaseUpdate = new NativeFunction(base.add(DebugMenuBaseUpdatePtr), "int", ["pointer", "float"]);
+const fEffectPreviewUpdate = new NativeFunction(base.add(EffectPreviewUpdatePtr), "int", ["pointer", "float"]);
 const fStageRemoveChild = new NativeFunction(base.add(StageRemoveChildPtr), "int", ["pointer", "pointer"]);
 
 var dptr;
@@ -49,8 +54,12 @@ const stage = Interceptor.attach(base.add(StageCtorPtr), {
 });
 const hudUpdate = Interceptor.attach(base.add(HudUpdatePtr), {
 	onEnter: function(args) {
-		if(debugmenutype >= 0) {
+		if(debugmenutype >= 0 && debugmenutype != 2) {
 			fDebugMenuBaseUpdate(dptr, 0);
+		}
+		if(debugmenutype === 2) {
+			fEffectPreviewUpdate(dptr, 0);
+			console.log("gay");
 		}
 	}
 });
@@ -59,12 +68,27 @@ const levelButton = Interceptor.attach(base.add(LoadLevelButtonButtonPressedPtr)
 		if (debugmenutype === 0) {
 			console.log("Level Button pressed");
 			fStageRemoveChild(stage_address, dptr);
+			free(dptr);
+			dptr = malloc(228);
 			fLevelMenuCtor(dptr, 0);
 			fStageAddChild(stage_address, dptr);
 			debugmenutype = 1;
 		}
 	}
 });		
+var effectButton = Interceptor.attach(base.add(EffectPreviewButtonButtonPressedPtr), {
+	onEnter: function(args) {
+		if(debugmenutype === 0) {
+			console.log("Effect Button pressed");
+			fStageRemoveChild(stage_address, dptr);
+			free(dptr);
+			dptr = malloc(228);
+			fEffectPreviewCtor(dptr);
+			fStageAddChild(stage_address, dptr);
+			debugmenutype = 2;
+		}
+	}
+});
 const ExitDebug = Interceptor.attach(base.add(ToggleDebugMenuButtonButtonPressedPtr), {
 	onEnter: function(args) {
 		console.log("Exit Button pressed");
