@@ -59,7 +59,6 @@ const hudUpdate = Interceptor.attach(base.add(HudUpdatePtr), {
 		}
 		if(debugmenutype === 2) {
 			fEffectPreviewUpdate(dptr, 0);
-			console.log("gay");
 		}
 	}
 });
