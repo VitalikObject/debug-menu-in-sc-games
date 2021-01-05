@@ -158,7 +158,7 @@ const getJsonOnLoad = Interceptor.replace(base.add(LogicClientHomeSetHomeJSONPtr
 	
 	playerhome = stringb.add(16).readPointer().readUtf8String();
 	try {
-		if(playerhome.startsWith("{\"mrvitalik\"")) {
+		if(playerhome.startsWith("{\"mrvitalik\"")) { //you must use apk from readMe
 			var pFile = fopen(createStringPtrFromJSString("/data/data/com.supercell.clashofclans/offline_home.json"), createStringPtrFromJSString("rb"));
 			
 			fseek(pFile, 0, SEEK_END)			
