@@ -161,7 +161,7 @@ const getJsonOnLoad = Interceptor.replace(base.add(LogicClientHomeSetHomeJSONPtr
 		if(playerhome.startsWith("{\"mrvitalik\"")) { //you must use apk from readMe
 			var pFile = fopen(createStringPtrFromJSString("/data/data/com.supercell.clashofclans/offline_home.json"), createStringPtrFromJSString("rb"));
 			
-			fseek(pFile, 0, SEEK_END)			
+			fseek(pFile, 0, SEEK_END);			
 			lSize = ftell(pFile);
 			rewind(pFile);
 	
