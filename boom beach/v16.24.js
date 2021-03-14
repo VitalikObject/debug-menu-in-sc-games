@@ -19,7 +19,7 @@ const fDebugMenuBaseUpdate = new NativeFunction(base.add(DebugMenuBaseUpdatePtr)
 
 base.add(LogicDefinesOfflineModePtr).writeU8(1);
 
-var stageAddress;
+var stagePtr;
 var debugMenuPtr; 
 
 const loadTexture = Interceptor.attach(base.add(GameModeAddResourcesToLoadPtr), {
@@ -31,7 +31,7 @@ const loadTexture = Interceptor.attach(base.add(GameModeAddResourcesToLoadPtr), 
 
 const getStageAddress = Interceptor.attach(base.add(StageCtorPtr), {
 	onEnter: function(args) {
-		stageAddress = args[0];
+		stagePtr = args[0];
 		getStageAddress.detach();
 	}
 });
@@ -40,7 +40,7 @@ const moneyHudCtor = Interceptor.attach(base.add(MoneyHudCtorPtr), {
 	onEnter: function(args) {
 		debugMenuPtr = malloc(228);
 		fDebugMenuCtor(debugMenuPtr);
-		fStageAddChild(stageAddress, debugMenuPtr);
+		fStageAddChild(stagePtr, debugMenuPtr);
 		moneyHudCtor.detach();
 	}
 });
