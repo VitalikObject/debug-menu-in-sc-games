@@ -1,6 +1,6 @@
 const base = Module.findBaseAddress("libg.so");
-
 const mallocPtr = Module.findExportByName("libc.so", "malloc");
+
 const LogicDefinesOfflineModePtr = 0x30F858;
 const GameModeAddResourcesToLoadPtr = 0xAB7DC + 1;
 const ResourceListenerAddFilePtr = 0x11C3F4 + 1;
@@ -11,7 +11,7 @@ const StageAddChildPtr = 0x12A87A + 1;
 const HudUpdatePtr = 0x69BD0 + 1;
 const DebugMenuBaseUpdatePtr = 0x4069C + 1;
 
-const malloc = new NativeFunction(mallocPtr, 'pointer', ['int']);
+const malloc = new NativeFunction(mallocPtr, "pointer", ["int"]);
 const fResourceListenerAddFile = new NativeFunction(base.add(ResourceListenerAddFilePtr), "void", ["pointer", "pointer", "int", "int"]);
 const fDebugMenuCtor = new NativeFunction(base.add(DebugMenuCtorPtr), "void", ["pointer"]);
 const fStageAddChild = new NativeFunction(base.add(StageAddChildPtr), "void", ["pointer", "pointer"]);
