@@ -22,6 +22,7 @@ const HudUpdatePtr = 0x118148 + 1;
 const DebugMenuBaseUpdatePtr = 0xF74D4 + 1;
 const EffectPreviewUpdatePtr = 0xF9564 + 1;
 const GlobalChatLineMessageSetMessagePtr = 0x1AC6E8 + 1;
+const LogicDefinesOfflineModePtr = 0x2F727C;
 
 const fNew = new NativeFunction(base.add(newPtr), 'pointer', ['int']);
 const fDebugMenuCtor = new NativeFunction(base.add(DebugMenuCtorPtr), "void", ["pointer"]);
@@ -38,7 +39,7 @@ const fStageRemoveChild = new NativeFunction(base.add(StageRemoveChildPtr), "int
 const fDebugMenuBaseUpdate = new NativeFunction(base.add(DebugMenuBaseUpdatePtr), "int", ["pointer", "float"]);
 const fEffectPreviewUpdate = new NativeFunction(base.add(EffectPreviewUpdatePtr), "int", ["pointer", "float"]);
 
-base.add(0x2F727C).writeU8(1);
+base.add(LogicDefinesOfflineModePtr).writeU8(1);
 
 Memory.protect(base.add(0x16766E), 1, 'rwx');
 Memory.writeByteArray(base.add(0x16766E), [0x7B]);
