@@ -16,3 +16,5 @@ For this repo I want to thank [daniilnull](https://github.com/daniillnull), [mic
 They described how to call debug menu in [scgdp](https://github.com/OpegitStudio/scgdp).
 
 #### Need help? Join [My Discord server](https://discord.gg/4FZrUFK4C6)
+
+####This content is not affiliated with, endorsed, sponsored, or specifically approved by Supercell and Supercell is not responsible for it. 
